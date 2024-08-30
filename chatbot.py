@@ -10,22 +10,19 @@ responses = {
     "greet": [
         "Hello! How can I assist you today?", 
         "Hi there! What can I do for you?", 
-        "Hello! How's it going?"
     ],
     "bye": [
         "Goodbye! Have a great day!", 
         "See you later!", 
-        "Bye! Take care!"
     ],
     "thank": [
         "You're welcome!", 
-        "No problem!", 
         "Glad I could help!"
     ],
     "default": [
         "I'm sorry, I didn't understand that.", 
         "Can you please rephrase?", 
-        "I'm not sure what you mean."
+        
     ]
 }
 
@@ -37,7 +34,7 @@ def get_intent(text):
     # Check if the user's input contains words that indicate a greeting
     if any(token.lemma_ in ["hello", "hi", "hey"] for token in doc):
         return "greet"
-    elif any(token.lemma_ in ["bye", "goodbye", "see you"] for token in doc):
+    elif any(token.lemma_ in ["bye", "goodbye"] for token in doc):
         return "bye"
     elif any(token.lemma_ in ["thank", "thanks"] for token in doc):
         return "thank"
