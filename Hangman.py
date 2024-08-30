@@ -1,6 +1,6 @@
 import random                                               # random module for words selection
 
-def choose_random_word(words_list):                         #function definition
+def choose_random_word(words_list):                         
     """Chooses a random word from the provided list of words."""
     return random.choice(words_list)
 
@@ -22,19 +22,16 @@ def get_player_guess(guessed_letters):
 def update_display_with_guess(word, display, guess):
     """Updates the display list with the guessed letter in the correct positions."""
 
-    # enumerate() to keep  code cleaner instead of index variable
     # enumerate to loop through the list with an index
 
     for index, letter in enumerate(word):
-        if letter == guess:                                # if guessed letter is present in choosen word
-            display[index] = letter                        #display letter at that index 
+        if letter == guess:                               
+            display[index] = letter                        
 
 def display_game_state(display, guessed_letters, incorrect_guesses, max_incorrect_guesses):
     """Displays the current state of the game."""
 
-    #fstring for ease of variable concatenation with string
-    print("\n-------HANGMAN GAME-------")
-    print(f"\nWord: {' '.join(display)}")                  # display contains word as underscores 
+     print(f"\nWord: {' '.join(display)}")                 
 
     #sorted creates new sorted list as set items in guessed_letters can't be changed                
     print(f"Guessed letters: {' , '.join(sorted(guessed_letters))}")
@@ -43,32 +40,29 @@ def display_game_state(display, guessed_letters, incorrect_guesses, max_incorrec
 """Main game loop."""
 def play_game():
     
-    words_list = ['technology', 'debug', 'programming', 'artificial', 'pseudo']
+    words_list = ['tech', 'debug', 'program', 'artificial', 'pseudo']
 
-    #function call 
-    #function call for random word selection from given list
+
     chosen_word = choose_random_word(words_list)
 
     #function call for display list with underscores
     display = initialize_display(chosen_word)
 
-    max_incorrect_guesses = 5               # limit of max guesses 
-    incorrect_guesses = 0                   #initialization
+    max_incorrect_guesses = 5                
+    incorrect_guesses = 0                  
     #use set as they don't contain duplicate values
-    guessed_letters = set()                 # empty set for assigning guess letters  
+    guessed_letters = set()                 
 
     while incorrect_guesses < max_incorrect_guesses and '_' in display:
-
-        # function call for game state display
-        display_game_state(display, guessed_letters, incorrect_guesses, max_incorrect_guesses)
-        # gets guess letter 
+       display_game_state(display, guessed_letters, incorrect_guesses, max_incorrect_guesses)
+    
         guess = get_player_guess(guessed_letters)
-        guessed_letters.add(guess)           # add guessed letter in set 
+        guessed_letters.add(guess)          
 
         if guess in chosen_word:
             update_display_with_guess(chosen_word, display, guess)
         else:
-            incorrect_guesses += 1           # increment incorrect guess limit 
+            incorrect_guesses += 1           
             print(f"Incorrect! The letter '{guess}' is not in the word.")
 
     if '_' not in display:
@@ -76,5 +70,5 @@ def play_game():
     else:
         print(f"\nGame over! The word was: {chosen_word}")
 
-# Start the game
+
 play_game()
